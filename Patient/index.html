@@ -2,51 +2,47 @@
 <html lang="en"> 
     <head>
         <title> Medical Appointment</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <style>
-       * {
-              padding: 0;
-              margin: 0;
-              font-family: 'Poppins', sans-serif;
-        }
-        .banner{
+      body {margin: 0;}
+      .banner{
             height: 100vh;
             width: 100%;
-            background-image: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)),url(background.jpg);
+            background-image: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)),url(hands.jpg);
             background-size: cover;
             background-position: center;
-        }  
-        .navbar{
-            width: 85%;
-            margin: auto;
-            padding: 35px 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }    
-        .navbar ul li{
-            list-style: none;
-            display: inline-block;
-            margin: 0 20px;
-            position: relative;
-        }
-        .navbar ul li a{
-            text-decoration: none;
-            color: #fff;
-            text-transform: uppercase;
-        }
-        .navbar ul li::after{
-            content: '';
-            height: 3px;
-            width: 0%;
-            background: #009688;
-            position: absolute;
-            left: 0;
-            bottom: -10px;
-            transition: 0.5s;
-        }
-        .navbar ul li:hoover::after{
-            width: 100%;
-        }
+        } 
+        body {font-family: Arial, Helvetica, sans-serif;}
+
+.navbar {
+  width: 100%;
+  background-color: #555;
+  overflow: auto;
+}
+
+.navbar a {
+  float: left;
+  padding: 12px;
+  color: white;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar a:hover {
+  background-color: #000;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+
+@media screen and (max-width: 500px) {
+  .navbar a {
+    float: none;
+    display: block;
+  }
+}
         .content{
             width: 100%;
             position: absolute;
@@ -97,30 +93,44 @@
         button:hover {
             border: none;
         }
-
+        #footer{
+  background-color: #212121;
+  height: 60px;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  line-height: 50px;
+  color: #aaa;
+  text-align: center;
+  width: 100%;
+}
 
         </style>
     </head>
     <body>
         <div class="banner" >
-           <div class="navbar">
-               <ul>
-                   <li> <a href="#">Sign-up</a></li>
-                   <li> <a href="#">Login</a></li>
-                   <li> <a href="#">Appointment</a></li>
-                   <li> <a href="#">Contact</a></li>
-               </ul>
-
-           </div>
+            <nav>
+                <div class="navbar">
+                    <a class="active" href="#"><i class="fa fa-fw fa-home"></i> Home</a> 
+                    <a href="Sign up.html"><i class="fa fa-fw fa-search"></i> Sign up</a> 
+                    <a href="Contact.html"><i class="fa fa-fw fa-envelope"></i> Contact</a> 
+                    <a href="Login.html"><i class="fa fa-fw fa-user"></i> Login</a>
+                    <a href="Appointment.html"><i class="fa fa-fw fa-user"></i> Appointment</a>
+                </div>
+            </nav>
                <div class="content">
                    <h1>WELCOME TO OUR ONLINE MEDICAL APPOINTMENT SITE</h1>
                    <p>Get to make apointments at the comfort of wherever you are to see a medical officer at your convinient time</p>
                    <div>
-                       <button type="button"><span></span>Login</button>
-                       <button type="button"><span></span>Sign up</button>
+                       <a href="Login.html"><button type="button"><span></span>Login</button></button>
+                       <a href="Sign up.html"><button type="button"><span></span>Sign up</button>
                    </div>
                </div>
         
         </div>
     </body>
+    |<div id="footer">
+      &copy; All Rights Reserved 2021-
+    </div>
+    </div> 
 </html>  
