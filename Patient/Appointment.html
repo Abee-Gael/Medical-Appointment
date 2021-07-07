@@ -1,246 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-* {
-  box-sizing: border-box;
-}
-.banner{
-            margin: 0;   
-            height: 100vh;
-            width: 100%;
-            background-image: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)),url(appointment.jpg);
-            background-size: contain;
-            background-position: center;
-        } 
-        html,body
-{
-    width: 100%;
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
-    overflow-x: hidden; 
-}
-
-input[type=text], select, textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: vertical;
-}
-
-label {
-  padding: 12px 12px 12px 0;
-  display: inline-block;
-}
-form {
-  max-width: 300px;
-  margin: 10px auto;
-  padding: 10px 20px;
-  background: #fdffff;
-  border-radius: 8px;
-}
-
-input[type=submit] {
-  background-color: #04AA6D;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  float: right;
-}
-
-input[type=submit]:hover {
-  background-color: #45a049;
-}
-input[type="text"],
-input[type="password"],
-input[type="date"],
-input[type="datetime"],
-input[type="email"],
-input[type="number"],
-input[type="search"],
-input[type="tel"],
-input[type="time"],
-input[type="url"],
-textarea,
-select {
-  background: rgba(255,255,255,0.1);
-  border: none;
-  font-size: 16px;
-  height: auto;
-  margin: auto;
-  outline: 0;
-  padding: 8px;
-  width: 100%;
-  background-color: #e8eeef;
-  color: black;
-  box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-  margin-bottom: 30px;
-}
-
-input[type="radio"],
-input[type="checkbox"]
-
-{
-  margin: 0 4px 8px 0;
-}
-
-select {
-  padding: 6px;
-  height: 32px;
-  border-radius: 2px;
-}
-
-button {
-  padding: 15px 30px 15px 20px;
-  color: #FFF;
-  background-color: #358CCE;
-  font-size: 18px;
-  text-align: center;
-  font-style: normal;
-  border-radius: 5px;
-  width: 100%;
-  border: 1px solid #358CCE;
-  border-width: 1px 1px 3px;
-  box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
-  margin-bottom: 10px;
-}
-
-fieldset {
-  margin-bottom: 30px;
-  border: none;
-}
-
-legend {
-  font-size: 1.4em;
-  margin-bottom: 10px;
-}
-
-label {
-  display: block;
-  margin-bottom: 8px;
-}
-
-label.light {
-  font-weight: 300;
-  display: inline;
-}
-
-.number {
-  background-color: #358CCE;
-  color: #fff;
-  height: 30px;
-  width: 30px;
-  display: inline-block;
-  font-size: 0.8em;
-  margin-right: 4px;
-  line-height: 30px;
-  text-align: center;
-  text-shadow: 0 1px 0 rgba(255,255,255,0.2);
-  border-radius: 100%;
-}
-
-
-
-  form {
-    max-width: 480px;
-  }
-
-
-.container {
-  border-radius: 5px;
-  padding: 20px;
-}
-
-.col-25 {
-  float: left;
-  width: 25%;
-  margin-top: 6px;
-}
-
-.col-75 {
-  float: left;
-  width: 75%;
-  margin-top: 6px;
-}
-
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-@media screen and (max-width: 600px) {
-  .col-25, .col-75, input[type=submit] {
-    width: 100%;
-    margin-top: 0;
-  }
-}
-.help-block {
-    color: #1E2749;
-}
-</style>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+<title>Appointment Form</title>
 </head>
 <body>
-    <div class="banner">
-<div class="container">
-    <form action="/action_page.php">
-      <div class="row">
-        <div class="col-25">
-          <label for="fname">First Name</label>
-        </div>
-        <div class="col-75">
-          <input type="text" id="fname" name="firstname" placeholder="Your name..">
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-25">
-          <label for="lname">Last Name</label>
-        </div>
-        <div class="col-75">
-          <input type="text" id="lname" name="lastname" placeholder="Your last name..">
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-25">
-          <label for="Doctor">Doctor </label>
-        </div>
-        <div class="col-75">
-          <select id="Doctor" name="Doctor">
-            <option>No Preference</option>
-            <option>Psychologist </option>
-            <option>Cardiologist</option>
-            <option>Gynaecologist</option>
-            <option>Dermatologists</option>
-            <option>Oncologists</option>
-            <option>Pediatricians</option>
-            <option>Neurologist</option>
-            <option>Family Physician</option>
-            <option>General Practitioner</option>
-          </select>
-        </div>
-      </div>
-        <label for="date">Date*:</label>
-        <input type="date" name="date" value="" required></input>
-        <br>
-        <label for="time">Time*:</label>
-        <input type="time" name="time" value="" required></input>
-        <br>
-        <label for="duration">How Long??(Minutes)</label>
-        <input type="radio" name="duration" value="30" checked> 30
-        <input type="radio" name="duration" value="60"> 60
-        <input type="radio" name="duration" value="90"> 90
-        <input type="radio" name="duration" value="more"> more
-      </fieldset>
-      <button type="submit" class="btn">Submit</button>
-      <button type="submit" class="btn">Cancel</button><hr>
-    </form>
-  </div>
-  </div>
-</body>
 
+  <body>
+    <div class="container">
+    
+          <form class="form-group">
+            <h2>Please fill out all information, so that we may better server you.</h2>
+            <div class="form-group">
+              <label for="first_name">First Name</label>
+              <input type="text" class="form-control" id="first_name" placeholder="First Name" required autofocus autocomplete="on">
+              <span class="help-block"></span>
+            </div>
+            <div class="form-group">
+              <label for="last_name">Last Name</label>
+              <input type="text" class="form-control" id="last_name" placeholder="Last Name" required autofocus autocomplete="on">
+              <span class="help-block"></span>
+            </div>  
+            <div class="form-group">
+              <label for="email_address">Email Address</label>
+              <input type="email" class="form-control" id="email_addr" placeholder="Email address" required>
+              <span class="help-block"></span>
+            </div>
+            <div class="form-group">
+              <label for="email_address_confirm">Please re-confirm your email address.</label>
+              <input type="email" class="form-control" id="email_address_confirm" placeholder="Confirm email address" required autocomplete="off">
+              <span class="help-block"></span>
+            </div>
+            <div class="form-group">
+              <label for="phone_number">Phone Number</label>
+              <input type="tel" class="form-control" id="phone_number" placeholder="+254">
+              <span class="help-block"></span>
+            </div>
+            <div class="form-group">
+              <label for="doA">Date of Appointment</label>
+              <input type="date" class="form-control" id="doA">
+              <span class="help-block"></span>
+            </div>
+            <div class="form-group">
+              <label for="time">Date of Appointment</label>
+              <input type="time" class="form-control" id="time">
+              <span class="help-block"></span>
+            </div>
+            <div class="form-group">
+              <label for="age">Service</label>
+              <input type="Service" class="form-control" id="Service" placeholder="Service" min="1" max="110" required>
+              <span class="help-block"></span>
+            </div>     
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Make appointment</button>
+          </form>
+    
+        </div> 
+    </body>
 </html>
