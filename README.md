@@ -77,6 +77,8 @@ Contains sketches of the interfaces.
   
 #### Book Appointment Page
 
+![book](https://user-images.githubusercontent.com/73745167/126126409-9e07126e-e409-4590-a4c0-7dad29bad5e6.png)
+
 - Form
 - Logo.
 - Navigation Bar.
@@ -85,12 +87,16 @@ Contains sketches of the interfaces.
   
 #### View Appointment Page
 
+![view](https://user-images.githubusercontent.com/73745167/126126452-a8889243-17ca-48fc-b39f-19bfaf21a032.png)
+
 - Form.
 - Logo.
 - Navigation Bar.
 - Footer.
 
 #### Cancel Appointment Page
+
+![cancel](https://user-images.githubusercontent.com/73745167/126126540-e01d64e4-18ee-482d-a5ef-ab3041539ad6.png)
 
 - Form.
 - Logo.
