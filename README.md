@@ -24,29 +24,25 @@
 
 1. To create a database system that will store the information of the medic's, patients and the appointments
 1. To create a system that will allow users to make appointments with the medic they need to see.
-1. To create a system that will generate messagesand send to the users showing approval or denial of their appointments.
-1. To create a system that will allow the users create their accounts, log in, view and edittheir profiles.
+1. To create a system that allows the doctor view the patients information.
+1. To create a system that will allow the users sign up, log in and make appointmnets.
 
 ### Users
 
 1. Medical Officer - This users can log in to the system to check their appointments
-1. Application Users - They can log in to make appointments. Get updates on their appointments.
-1. Clinic - They include the medical officers working in their clinc and the time they are available.
+2. Application Users - They can log in to book or cancle appointments.
 
 ## Functional Requirements
 
-1  Authentication Module
+1. Authentication Module
   Provides the user with a text field where they can enter the username and password.
   If username and password are incorrect the user is asked to enter the correct credentials.
 
-2  Booking Appointments Module
+1. Booking Appointments Module
   Provides User with a list where they can choose the medic they want to book an appointment with.
 
-3   Payment Module
-   Provides the user with the amount they have to pay for the medic they have chosen to make an appointment with.
-
-4   Messaging Module
-   Sends users message to tell them if or not their appointments are approved or to remind them of their scheduled appointments.
+1. Report Generation Module
+   The System generates a report on every patient information like patients name, Phone number, etc.
 
 ## Software Desing Specification
 
