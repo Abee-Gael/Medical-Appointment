@@ -29,9 +29,9 @@
 
 ### Users
 
-1  Medical Officer - This users can log in to the system to check their appointments
-2  Application Users - They can log in to make appointments. Get updates on their appointments.
-3  Clinic - They include the medical officers working in their clinc and the time they are available.
+1. Medical Officer - This users can log in to the system to check their appointments
+1. Application Users - They can log in to make appointments. Get updates on their appointments.
+1. Clinic - They include the medical officers working in their clinc and the time they are available.
 
 ## Functional Requirements
 
@@ -59,6 +59,8 @@ This is a summarized design of an Online Medical Appointment System.
 Contains sketches of the interfaces.
 
 #### Home Page
+
+![home](https://user-images.githubusercontent.com/73745167/126126134-6228c858-77d1-473d-8440-66f225076200.png)
 
 - Navigation bar.
 - Footer.
