@@ -11,8 +11,7 @@
 	background-color: #D3D3D3;
 
 }
-
-} body,html{
+body,html{
 	margin: 0;
 	padding: 0;
 
@@ -116,7 +115,7 @@ tr:nth-child(even){
 		<th>Category</th>
 
 		</tr>
-		<?php $sql3="SELECT  * FROM bookapp , doctor   WHERE patientID=('$userprofile') AND  docID=DoctorID "  ;
+		<?php $sql3="SELECT  * FROM book , doctor   WHERE patientID=('UserID') AND  docID=DoctorID "  ;
 		$result3=$mysqli->query($sql3);
 		if(mysqli_num_rows($result3)>=1){
 			while ($row3=$result3->fetch_assoc()) {

@@ -147,8 +147,8 @@ form{
 	<?php include ('../../datalayer/errors.php') ;?>
 
 	<div class="input-group">
-		<label>Appointment ID</label>
-		<input type="text" name="AppoID2" >
+		<label>Name</label>
+		<input type="text" name="Name" >
 
 	</div>
 

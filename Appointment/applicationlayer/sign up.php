@@ -82,12 +82,6 @@ form{
 
 	<?php include ('../datalayer/errors.php'); ?>
 
-	<div class="input-group">
-		<label>User ID</label>
-		<input type="text" name="UserID" >
-
-	</div>
-
 
 	<div class="input-group">
 		<label>Name</label>
@@ -118,13 +112,13 @@ form{
 
 	<div class="input-group">
 		<label>Password</label>
-		<input type="text" name="password">
+		<input type="text" name="Password">
 
 	</div>
 
 	<div class="input-group">
 		<label>Blood type</label>
-		<input type="text" name="bloodtype">
+		<input type="text" name="Bloodtype">
 
 	</div>
    

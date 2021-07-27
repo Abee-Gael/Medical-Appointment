@@ -92,7 +92,7 @@ width: auto;
 		<th>PatientContactNumber</th>
 		<th>BloodGroup</th>
 		</tr>
-		<?php $sqldoc="SELECT  * FROM bookapp , patients   WHERE docID=('$doctorprofile') AND  patientID=UserID "  ;
+		<?php $sqldoc="SELECT  * FROM book , patients   WHERE  patientID=UserID "  ;
 		$resultdoc=$mysqli->query($sqldoc);
 		if(mysqli_num_rows($resultdoc)>= 1){
 			while ($rowdoc=$resultdoc->fetch_assoc()) {

@@ -119,7 +119,7 @@ tr:nth-child(even){
 		if(mysqli_num_rows($result3)>=1){
 			while ($row3=$result3->fetch_assoc()) {
 
-				echo "<tr><td>".$row3["DoctorID"]."</td><td>".$row3["Doctorname"]."</td><td>".$row3["email"]."</td><td>".$row3["Address"]."</td><td>".$row3['ContactNumber']."</td><td>".$row3['password']."</td><td>".$row3["categorey"]."</td></tr>";
+				echo "<tr><td>".$row3["DoctorID"]."</td><td>".$row3["Doctorname"]."</td><td>".$row3["email"]."</td><td>".$row3["Address"]."</td><td>".$row3['ContactNumber']."</td><td>".$row3['password']."</td><td>".$row3["category"]."</td></tr>";
 			}
 			echo "</table";
 	

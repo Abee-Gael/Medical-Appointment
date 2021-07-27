@@ -80,8 +80,8 @@
 	<?php include ('../datalayer/errors.php')?>
 
 	<div class="input-group">
-		<label>Doctor ID</label>
-		<input type="text" name="doctorID">
+		<label>Name</label>
+		<input type="text" name="doctorname">
 
 	</div>
 

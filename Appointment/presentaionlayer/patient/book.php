@@ -228,7 +228,7 @@ form{
 	   		<option value="Oncologists" >Oncologists</option>
 	   		<option value="Cardiologist">Cardiologist</option>
 	   		<option value="Dentistry">Dentistry</option>
-	   		<option value="Paediatrician">Paediatrician</option>
+	   		<option value="Pediatrician">Pediatrician</option>
 	   		<option value="General Physician">General Physician</option>
 	   	</select>
 	</div>
@@ -249,28 +249,12 @@ form{
 	
 		<div class="input-group"> 
 
-			<label>Doctor ID</label>
-			
-
-		<select class="input-group2" name="docID">
-			
-	<?php   while ($row2=mysqli_fetch_assoc($result2)) {
-		?>
-		
-	 
-		<option> <?php echo $row2['DoctorID'] ?> </option>
-		
-	   <?php 
-
-	} ?>
-	 </select>
+			<label>Doctor Name</label>
+			<select name="Doctor" class="xd">
+	   		<option value="Abigael" >Abigael</option>
+	   		<option value="Elizabeth" >Elizabeth</option>
+	   	</select>
 	 </div>
-
-	<div class="input-group">
-		<label>Appointment ID</label>
-		<input type="text" name="AppoID" >
-
-	</div>
 
 	<div class="input-group">
 		<label>Date</label>
