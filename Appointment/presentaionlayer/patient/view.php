@@ -1,9 +1,8 @@
-<?php include '../../datalayer/bookserver.php'; ?>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Patient</title>
-	<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Open+Sans:wght@300&display=swap" rel="stylesheet">
 	<style>
 				body,html{
 	margin: 0;
@@ -96,78 +95,59 @@ tr:nth-child(even){
 			<li><a href=" book.php">Book Appointment</a></li>
 			<li><a href="view.php">View Appointment</a></li>
 			<li><a href="cancel.php">Cancel Booking</a></li>
+			<li><a href="feedback.php">Feedback</a></li>
 			<li><a href="services.php">Services</a></li>
 			<li><a href="about us.php">About Us</a></li>
 			<li><a href="../../applicationlayer/Doctorpatient.php">Logout</a></li>
 		</ul>
 	</nav>
 </header>
-
 	<table class="table2">
-		<tr>
-		<th>Appointment ID</th>
-		<th>DATE</th>
-		<th>TIME</th>
-		<th>Doctor ID</th>
-		<th>Doctor Name</th>
-		<th>Address</th>
-		<th>Contact Number</th>
-		<th>Category</th>
 
-		</tr>
-		<?php $sql3="SELECT  * FROM book , doctor   WHERE patientID=('UserID') AND  docID=DoctorID "  ;
-		$result3=$mysqli->query($sql3);
-		if(mysqli_num_rows($result3)>=1){
-			while ($row3=$result3->fetch_assoc()) {
+		<?php
+echo "<tr><th>Appointment ID</th><th>Patient ID</th><th>Name</th><th>DATE</th><th>TIME</th><th>Doctor Name</th><th>Category</th></tr>";
 
-				echo "<tr><td>".$row3["AppoID"]."</td><td>".$row3["Date"]."</td><td>".$row3["Time"]."</td><td>".$row3["docID"]."</td><td>".$row3['Doctorname']."</td><td>".$row3['Address']."</td><td>".$row3['ContactNumber']."</td><td>".$row3["categorey"]."</td></tr>";
-			}
+class TableRows extends RecursiveIteratorIterator {
+  function __construct($it) {
+    parent::__construct($it, self::LEAVES_ONLY);
+  }
 
+  function current() {
+    return "<td style='width:150px;border:1px solid black;'>" . parent::current(). "</td>";
+  }
 
-			echo "</table";
-	
+  function beginChildren() {
+    echo "<tr>";
+  }
 
+  function endChildren() {
+    echo "</tr>" . "\n";
+  }
+}
 
-		}
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "appointment";
 
-		?>
-		
+try {
+  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $stmt = $conn->prepare("SELECT*FROM book WHERE Appointment_ID=1");
+  $stmt->execute();
+
+  // set the resulting array to associative
+  $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+  foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
+    echo $v;
+  }
+} catch(PDOException $e) {
+  echo "Error: " . $e->getMessage();
+}
+$conn = null;
+echo "</table>";
+?>
 	</table>
-
-
-<!--	<table class="table3">
-		<tr>
-		<th>Doctor Name</th>
-		<th>Address</th>
-		<th>Contact Number</th>
-		<th>Category</th>
-		doctor.Doctorname , doctor.Address,doctor.ContactNumber,doctor.category
-,doctor
-AND docID= ('$userprofile')
-.$row3["Doctorname"]."</td><td>".$row3["Address"]."</td><td>".$row3["ContactNumber"]."</td><td>".$row3["category"]
-
-		</tr>
-		<?php $sql4="SELECT doctor.Doctorname,doctor.Address,doctor.ContactNumber,doctor.category FROM doctor " ;
-		$result4=$mysqli->query($sql4);
-		if(mysqli_num_rows($result4)>1){
-			while ($row4=$result4->fetch_assoc()) {
-
-				echo "<tr><td>".$row4["Doctorname"]."</td><td>".$row4["Address"]."</td><td>".$row4["ContactNumber"]."</td><td>".$row4["category"]."</td></tr>";
-			}
-			echo "</table";
-
-
-	
-
-
-		}
-
-		?>
-		
-	</table>
-
-
--->
 
 <div id="footer">
       &copy; All Rights Reserved 2021-

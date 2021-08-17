@@ -1,4 +1,4 @@
-<?php include '../../datalayer/bookserver.php '; ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,30 +81,49 @@ width: auto;
 </header>
 <body>
 	<table class="table2">
-		<tr>
-		<th>Appointment ID</th>
-		<th>DATE</th>
-		<th>TIME</th>
-		<th>PatientID</th>
-		<th>PatientName</th>
-		<th>PatientAddress</th>
-		<th>PatientEmail</th>
-		<th>PatientContactNumber</th>
-		<th>BloodGroup</th>
-		</tr>
-		<?php $sqldoc="SELECT  * FROM book , patients   WHERE  patientID=UserID "  ;
-		$resultdoc=$mysqli->query($sqldoc);
-		if(mysqli_num_rows($resultdoc)>= 1){
-			while ($rowdoc=$resultdoc->fetch_assoc()) {
+		<?php
+echo "<tr><th>Appointment ID</th><th>Date</th><th>Time</th><th>Patient_ID</th><th>Name</th><th>Contact Number</th><th>Address</th><th>Email</th><th>Category</th></tr>";
 
-				echo "<tr><td>".$rowdoc["AppoID"]."</td><td>".$rowdoc["Date"]."</td><td>".$rowdoc["Time"]."</td><td>".$rowdoc["UserID"]."</td><td>".$rowdoc['Name']."</td><td>".$rowdoc['Address']."</td><td>".$rowdoc['Email']."</td><td>".$rowdoc["ContactNumber"]."</td><td>".$rowdoc["Bloodtype"]."</td></tr>";
-			}
+class TableRows extends RecursiveIteratorIterator {
+  function __construct($it) {
+    parent::__construct($it, self::LEAVES_ONLY);
+  }
 
-			echo "</table";
-	
-		}
+  function current() {
+    return "<td style='width:150px;border:1px solid black;'>" . parent::current(). "</td>";
+  }
 
-		?>
+  function beginChildren() {
+    echo "<tr>";
+  }
+
+  function endChildren() {
+    echo "</tr>" . "\n";
+  }
+}
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "appointment";
+
+try {
+  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $stmt = $conn->prepare("SELECT book.Appointment_ID,book.Date,book.Time, patients.Patient_ID, patients.Name, patients.ContactNumber,patients.Address,patients.Email,patients.Bloodtype FROM  book, patients ;");
+  $stmt->execute();
+
+  // set the resulting array to associative
+  $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+  foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
+    echo $v;
+  }
+} catch(PDOException $e) {
+  echo "Error: " . $e->getMessage();
+}
+$conn = null;
+echo "</table>";
+?>
 		
 	</table>
 

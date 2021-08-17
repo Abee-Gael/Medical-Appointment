@@ -1,4 +1,53 @@
-<?php include('../datalayer/server.php'); ?>
+<?php
+/* Attempt MySQL server connection. Assuming you are running MySQL
+server with default setting (user 'root' with no password) */
+$mysqli = new mysqli("localhost", "root", "", "appointment");
+ 
+// Check connection
+if($mysqli === false){
+    die("ERROR: Could not connect. " . $mysqli->connect_error);
+}
+ 
+if (isset($_POST['Name']) || isset($_POST['ContactNumber']) || isset($_POST['Address']) ||isset($_POST['Email'])|| isset($_POST['Password']) || isset($_POST['Bloodtype'])) {
+// Escape user inputs for security
+$Name = $mysqli->real_escape_string($_REQUEST['Name']);
+$ContactNumber = $mysqli->real_escape_string($_REQUEST['ContactNumber']);
+$Address = $mysqli->real_escape_string($_REQUEST['Address']);
+$Email = $mysqli->real_escape_string($_REQUEST['Email']);
+$Password = $mysqli->real_escape_string($_REQUEST['Password']);
+$Bloodtype = $mysqli->real_escape_string($_REQUEST['Bloodtype']);
+} 
+if(!isset($Name)){
+  $Name = 'Name';
+  }
+  if(!isset($ContactNumber)){
+  $ContactNumber = 'ContactNumber';
+  }
+  if(!isset($Address)){
+      $Address = 'Address';
+      }
+	  if(!isset($Email)){
+		$Email = 'Email';
+		}
+      if(!isset($Password)){
+        $Password = 'Password';
+        }
+		if(!isset($Bloodtype)){
+			$Bloodtype = 'Bloodtype';
+			}
+// Attempt insert query execution
+$sql = "INSERT INTO patients(Name, ContactNumber, Address, Email, Password, Bloodtype) VALUES ('$Name','$ContactNumber', '$Address', '$Email','$Password','$Bloodtype')";
+
+if($mysqli->query($sql) === true){
+} else{
+    echo "ERROR: Could not able to execute $sql. " . $mysqli->error;
+}
+$_SESSION['Name']=$Name;
+$_SESSION['success']="you are now logged in";
+header('location:../presentaionlayer/patient/index.php');
+// Close connection
+$mysqli->close();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,9 +129,6 @@ form{
 
 <form method="post" action="sign up.php" enctype="multipart/form-data">
 
-	<?php include ('../datalayer/errors.php'); ?>
-
-
 	<div class="input-group">
 		<label>Name</label>
 		<input type="text" name="Name" >
@@ -105,7 +151,7 @@ form{
 
 
 	<div class="input-group">
-		<label>Email address</label>
+		<label>Email</label>
 		<input type="text" name="Email">
 
 	</div>

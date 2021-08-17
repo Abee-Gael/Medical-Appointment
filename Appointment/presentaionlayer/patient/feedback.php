@@ -1,49 +1,64 @@
-<?php include ('../../datalayer/server.php'); ?>
+<?php
+/* Attempt MySQL server connection. Assuming you are running MySQL
+server with default setting (user 'root' with no password) */
+$mysqli = new mysqli("localhost", "root", "", "appointment");
+ 
+// Check connection
+if($mysqli === false){
+    die("ERROR: Could not connect. " . $mysqli->connect_error);
+}
+ 
+if (isset($_POST['Name']) || isset($_POST['Email']) || isset($_POST['Message'])) {
+// Escape user inputs for security
+$Name = $mysqli->real_escape_string($_REQUEST['Name']);
+$Date = $mysqli->real_escape_string($_REQUEST['Email']);
+$Time = $mysqli->real_escape_string($_REQUEST['Message']);
+
+} 
+if(!isset($Name)){
+  $Name = 'Name';
+  }
+if(!isset($Email)){
+  $Date = 'Email';
+  }
+  if(!isset($Message)){
+  $Time = 'Message';
+  }
+ 
+// Attempt insert query execution
+$sql = "INSERT INTO feedback (Name, Email, Message) VALUES ('$Name', '$Email', '$Message')";
+if($mysqli->query($sql) === true){
+} else{
+    echo "ERROR: Could not able to execute $sql. " . $mysqli->error;
+}
+ 
+// Close connection
+$mysqli->close();
+?>
 <!DOCTYPE html>
 <html>
-    <head>
-     <title> Feedback Form </title>
-        <meta name="viewport" content="width=device-width,initial-scale=1.0">
-        <style>
-            body {margin: 0;}
-      .banner{
-            height: 100vh;
-            width: 100%;
-            background-image: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)),url(background.jpg);
-            background-size: cover;
-            background-position: center;
-        } 
-        body {font-family: Times New Roman;}
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+header{
+	width: 100%;
+	height: 70px;
+	background-color: #282828;
 
-.navbar {
-  width: 100%;
-  background-color: #555;
-  overflow: auto;
-  font-family: Times New Roman;
+}
+h2{
+	position: absolute;
+	padding: 3px;
+	float: left;
+	margin-left: 2%;
+	margin-top: 10px;
+	font-family: Times New Roman;
+	color: blue;
+	font-size: 30px;
 }
 
-.navbar a {
-  float: left;
-  padding: 12px;
-  color: white;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-.navbar a:hover {
-  background-color: #000;
-}
-
-.active {
-  background-color: #04AA6D;
-}
-
-@media screen and (max-width: 500px) {
-  .navbar a {
-    float: none;
-    display: block;
-  }
-}
 ul{
 	width: auto;
 	float: right;
@@ -61,93 +76,77 @@ a{
 	color: #ffffff;
 	text-decoration: none;
 	font-family: Times New Roman;
-	font-size: 1.2vw;
+	font-size: 1.4vw;
 
 }
 a:hover{
 	color: #F0c330;
 	transition: 0.5s;
 }
-.modal-dialog {
-    height: 50%;
-    width: 50%;
-    margin: auto
+      
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
 }
 
-.modal-header {
-    color: white;
-    background-color: #007bff
+input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-textarea {
-    border: none;
-    box-shadow: none !important;
-    -webkit-appearance: none;
-    outline: 0px !important
+input[type=submit]:hover {
+  background-color: #45a049;
 }
 
-.openmodal {
-    margin-left: 35%;
-    width: 25%;
-    margin-top: 25%
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
 }
+</style>
+</head>
+<body>
+<header>
+	<h2>Afya Bora</h2>
+		<nav>
+		<ul> 
+      <li><a href=" index.php">Home</a></li>
+			<li><a href=" book.php">Book Appointment</a></li>
+			<li><a href="view.php">View Appointment</a></li>
+			<li><a href="cancel.php">Cancel Booking</a></li>
+      <li><a href="feedback.php">Feedback</a></li>
+			<li><a href="services.php">Services</a></li>
+			<li><a href="about us.php">About Us</a></li>
+			<li><a href="../../applicationlayer/Doctorpatient.php">Logout</a></li>
+		</ul>
+	</nav>
+</header>
+<h3>Feedback Form</h3>
 
-.icon1 {
-    color: #007bff
-}
+<div class="container">
+  <form action="feedback.php" method="post">
+    <label for="Name"> Name</label>
+    <input type="text" id="" name="Name" placeholder="Your name..">
 
-a {
-    margin: auto
-}
+    <label for="Email">Email</label>
+    <input type="text" id="" name="Email" placeholder="Your last name..">
 
-input {
-    color: #007bff
-}
-        </style>
-    </head>
-    <body>
-        <nav>
-            <div class="navbar">
-				<li><a href=" index.php">Home</a></li>
-			    <li><a href=" book.php">Book Appointment</a></li>
-			    <li><a href="view.php">View Appointment</a></li>
-			    <li><a href="cancel.php">Cancel Booking</a></li>
-			    <li><a href="services.php">Services</a></li>
-			    <li><a href="about us.php">About Us</a></li>
-			    <li><a href="../../applicationlayer/Doctorpatient.php">Logout</a></li>
-            </div>
-        </nav>
-        <button type="button" class="btn btn-info btn-lg openmodal" data-toggle="modal" data-target="#myModal">Open Modal</button>
-<!--Division for Modal-->
-<div id="myModal" class="modal fade" role="dialog">
-    <!--Modal-->
-    <div class="modal-dialog">
-        <!--Modal Content-->
-        <div class="modal-content">
-            <!-- Modal Header-->
-            <div class="modal-header">
-                <h3>Feedback Request</h3>
-                <!--Close/Cross Button--> <button type="button" class="close" data-dismiss="modal" style="color: white;">&times;</button>
-            </div> <!-- Modal Body-->
-            <div class="modal-body text-center"> <i class="far fa-file-alt fa-4x mb-3 animated rotateIn icon1"></i>
-                <h3>Your opinion matters</h3>
-                <h5>Help us improve our product? <strong>Give us your feedback.</strong></h5>
-                <hr>
-                <h6>Your Rating</h6>
-            </div> <!-- Radio Buttons for Rating-->
-            <div class="form-check mb-4"> <input name="feedback" type="radio"> <label class="ml-3">Very good</label> </div>
-            <div class="form-check mb-4"> <input name="feedback" type="radio"> <label class="ml-3">Good</label> </div>
-            <div class="form-check mb-4"> <input name="feedback" type="radio"> <label class="ml-3">Mediocre</label> </div>
-            <div class="form-check mb-4"> <input name="feedback" type="radio"> <label class="ml-3">Bad</label> </div>
-            <div class="form-check mb-4"> <input name="feedback" type="radio"> <label class="ml-3">Very Bad</label> </div>
-            <!--Text Message-->
-            <div class="text-center">
-                <h4>What could we improve?</h4>
-            </div> <textarea type="textarea" placeholder="Your Message" rows="3"></textarea> <!-- Modal Footer-->
-            <div class="modal-footer"> <a href="" class="btn btn-primary">Send <i class="fa fa-paper-plane"></i> </a> <a href="" class="btn btn-outline-primary" data-dismiss="modal">Cancel</a> </div>
-        </div>
-    </div>
+    <label for="Message">Message</label>
+    <textarea id="subject" name="Message" placeholder="Write something.." style="height:200px"></textarea>
+
+    <input type="submit" value="Submit">
+  </form>
 </div>
-    </body>
-</html>    
-   
+
+</body>
+</html>

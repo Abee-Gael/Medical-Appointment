@@ -1,4 +1,4 @@
-<?php include '../../datalayer/bookserver.php'; ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -104,30 +104,52 @@ tr:nth-child(even){
 
 <body>
 	<table class="table4">
-		<tr>
-		<th>Doctor ID</th>
-		<th>Doctor Name</th>
-		<th>Email</th>
-		<th>Address</th>
-		<th>Contact Number</th>
-		<th>Password</th>
-		<th>Category</th>
-		</tr>
 
-		<?php $sql3="SELECT  * FROM  doctor " ;
-		$result3=$mysqli->query($sql3);
-		if(mysqli_num_rows($result3)>=1){
-			while ($row3=$result3->fetch_assoc()) {
+		<?php
+echo "<tr><th>Doctor ID</th><th>Name</th><th>Contact Number</th><th>Address</th><th>Email</th><th>Password</th><th>Category</th></tr>";
 
-				echo "<tr><td>".$row3["DoctorID"]."</td><td>".$row3["Doctorname"]."</td><td>".$row3["email"]."</td><td>".$row3["Address"]."</td><td>".$row3['ContactNumber']."</td><td>".$row3['password']."</td><td>".$row3["category"]."</td></tr>";
-			}
-			echo "</table";
-	
-		}
+class TableRows extends RecursiveIteratorIterator {
+  function __construct($it) {
+    parent::__construct($it, self::LEAVES_ONLY);
+  }
 
-		?>
-		
+  function current() {
+    return "<td style='width:150px;border:1px solid black;'>" . parent::current(). "</td>";
+  }
+
+  function beginChildren() {
+    echo "<tr>";
+  }
+
+  function endChildren() {
+    echo "</tr>" . "\n";
+  }
+}
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "appointment";
+
+try {
+  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $stmt = $conn->prepare("SELECT*FROM doctor");
+  $stmt->execute();
+
+  // set the resulting array to associative
+  $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+  foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
+    echo $v;
+  }
+} catch(PDOException $e) {
+  echo "Error: " . $e->getMessage();
+}
+$conn = null;
+echo "</table>";
+?>
 	</table>
+
 	<div id="footer">
       &copy; All Rights Reserved 2021-
     </div>

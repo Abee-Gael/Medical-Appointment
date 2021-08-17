@@ -1,4 +1,56 @@
-<?php include('../datalayer/server.php') ?>
+<?php 
+  
+  $conn = "";
+	 
+  try {
+	  $servername = "localhost:3306";
+	  $dbname = "appointment";
+	  $username = "root";
+	  $password = "";
+	 
+	  $conn = new PDO(
+		  "mysql:host=$servername; dbname=appointment",
+		  $username, $password
+	  );
+		
+	 $conn->setAttribute(PDO::ATTR_ERRMODE,
+					  PDO::ERRMODE_EXCEPTION);
+  }
+  catch(PDOException $e) {
+	  echo "Connection failed: " . $e->getMessage();
+  }
+  function test_input($data) {
+      
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+   
+if ($_SERVER["REQUEST_METHOD"]== "POST") {
+      
+    $Name = test_input($_POST["Name"]);
+    $Password = test_input($_POST["Password"]);
+    $stmt = $conn->prepare("SELECT * FROM admin");
+    $stmt->execute();
+    $users = $stmt->fetchAll();
+      
+    foreach($users as $user) {
+          
+        if(($user['Adminname'] == $Name) && 
+            ($user['Adminpassword'] == $Password)) {
+                header("location:../presentaionlayer/admin/index3.php");
+        }
+        else {
+            echo "<script language='javascript'>";
+            echo "alert('WRONG INFORMATION')";
+            echo "</script>";
+            die();
+        }
+    }
+}
+ 
+  ?>
 
 <!DOCTYPE html>
 <html>
@@ -77,17 +129,17 @@
 
 <form method="post" action="login3.php" class="form">
 
-	<?php include ('../datalayer/errors.php')?>
+
 
 	<div class="input-group">
-		<label>Admin ID</label>
-		<input type="text" name="adminID">
+		<label>Name</label>
+		<input type="text" name="Name">
 
 	</div>
 
 	<div class="input-group">
 		<label>Password</label>
-		<input type="Password" name="adminpassword">
+		<input type="Password" name="Password">
 
 	<div class="input-group">
 		<button type="submit" name="Login3" class="btn"> Login</button>

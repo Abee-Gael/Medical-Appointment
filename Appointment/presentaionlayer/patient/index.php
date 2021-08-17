@@ -1,5 +1,3 @@
-
-<?php include ('../../datalayer/server.php'); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -136,6 +134,7 @@ a:hover{
 			<li><a href=" book.php">Book Appointment</a></li>
 			<li><a href="view.php">View Appointment</a></li>
 			<li><a href="cancel.php">Cancel Booking</a></li>
+            <li><a href="feedback.php">Feedback</a></li>
 			<li><a href="services.php">Services</a></li>
 			<li><a href="about us.php">About Us</a></li>
 			<li><a href="../../applicationlayer/Doctorpatient.php">Logout</a></li>

@@ -8,31 +8,27 @@ if($mysqli === false){
     die("ERROR: Could not connect. " . $mysqli->connect_error);
 }
  
-if (isset($_POST['Name']) || isset($_POST['Date']) || isset($_POST['Time']) ||isset($_POST['DoctorName'])|| isset($_POST['Category'])) {
+if (isset($_POST['PatientName']) || isset($_POST['Treatment']) || isset($_POST['DoctorNote'])) {
 // Escape user inputs for security
-$Name = $mysqli->real_escape_string($_REQUEST['Name']);
-$Date = $mysqli->real_escape_string($_REQUEST['Date']);
-$Time = $mysqli->real_escape_string($_REQUEST['Time']);
-$DoctorName = $mysqli->real_escape_string($_REQUEST['DoctorName']);
-$Category = $mysqli->real_escape_string($_REQUEST['Category']);
-} 
-if(!isset($Name)){
-  $Name = 'Name';
-  }
-if(!isset($Date)){
-  $Date = 'Date';
-  }
-  if(!isset($Time)){
-  $Time = 'Time';
-  }
-  if(!isset($DoctorName)){
-      $DoctorName = 'DoctorName';
-      }
-      if(!isset($Category)){
-        $Category = 'Category';
+$PatientID = $mysqli->real_escape_string($_REQUEST['PatientID']);
+$PatientName = $mysqli->real_escape_string($_REQUEST['PatientName']);
+$Treatment = $mysqli->real_escape_string($_REQUEST['Treatment']);
+$DoctorNote = $mysqli->real_escape_string($_REQUEST['DoctorNote']);
+}
+if(!isset($PatientID)){
+    $PatientID = 'PatientID';
+    }
+if(!isset($PatientName)){
+    $PatientName = 'PatientName';
+    }
+    if(!isset($Treatment)){
+    $Treatment = 'Treatment';
+    }
+    if(!isset($DoctorNote)){
+        $DoctorNote = 'DoctorNote';
         }
 // Attempt insert query execution
-$sql = "INSERT INTO book(Name, Date, Time, DoctorName, Category) VALUES ('$Name', '$Date', '$Time','$DoctorName','$Category')";
+$sql = "INSERT INTO treatment (Patient_ID, PatientName, Treatment, DoctorNote) VALUES ('$PatientID', '$PatientName', '$Treatment','$DoctorNote')";
 if($mysqli->query($sql) === true){
 } else{
     echo "ERROR: Could not able to execute $sql. " . $mysqli->error;
@@ -45,15 +41,9 @@ $mysqli->close();
 <html>
 <head>
   <meta charset="UTF-8"/>
-  <title>Book Appointment</title>
+  <title>Treatment</title>
   <style>
-	    .banner,body{
-            height: 100vh;
-            width: 100%;
-            background-image: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)),url(appointment.jpg);
-            background-size: cover;
-            background-position: center;
-        } 
+
       body{
           background-color: #D3D3D3;
 		  margin: 0;}
@@ -172,64 +162,50 @@ input[type=submit] {
 	<h2>Afya Bora</h2>
 		<nav>
 		<ul> 
-      <li><a href=" index.php">Home</a></li>
-			<li><a href=" book.php">Book Appointment</a></li>
-			<li><a href="view.php">View Appointment</a></li>
-			<li><a href="cancel.php">Cancel Booking</a></li>
-      <li><a href="feedback.php">Feedback</a></li>
-			<li><a href="services.php">Services</a></li>
-			<li><a href="about us.php">About Us</a></li>
+			<li><a href=" index.php">Home</a></li>
+			<li><a href=" searchpatient.php">Search Patient</a></li>
+            <li><a href=" treatment.php">Treatment</a></li>
 			<li><a href="../../applicationlayer/Doctorpatient.php">Logout</a></li>
 		</ul>
 	</nav>
 </header>
 	<div class="banner">
 <div class="container">
-  <form action="book.php" method="post">
-    <div class="row">
+  <form action="treatment.php" method="post">
+  <div class="row">
       <div class="col-25">
-        <label for="Name">Name</label>
+        <label for="PatientID">Patient ID</label>
       </div>
       <div class="col-75">
-        <input type="text" id="" name="Name" placeholder="Your name..">
+        <input type="PatientID" id="PatientID" name="PatientID" placeholder="Patients ID...">
       </div>
     </div>
     <div class="row">
       <div class="col-25">
-        <label for="Date">Date</label>
+        <label for="PatientName">Patient Name</label>
       </div>
       <div class="col-75">
-        <input type="Date" id="" name="Date" placeholder="">
+        <input type="PatientName" id="PatientName" name="PatientName" placeholder="Patients Name...">
       </div>
     </div>
     <div class="row">
       <div class="col-25">
-        <label for="Time">Time</label>
+        <label for="Treatment">Treatment</label>
       </div>
       <div class="col-75">
-        <input type="Time" id="" name="Time" placeholder="">
+        <input type="Treatment" id="Treatment" name="Treatment" placeholder="Patients treatment...">
       </div>
     </div>
     <div class="row">
       <div class="col-25">
-        <label for="Category">Category</label>
+        <label for="DoctorNote">Doctor's Note</label>
       </div>
       <div class="col-75">
-        <select id="" name="Category">
-          <option value="Oncologist">Oncologist</option>
-        </select>
+        <input type="DoctorNote" id="DoctorNote" name="DoctorNote" placeholder="Doctor's Note...">
       </div>
     </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="DoctorName">Doctor Name</label>
-      </div>
-      <div class="col-75">
-        <select id="DoctorName" name="DoctorName">
-          <option value="Elizabeth Jones">Elizabeth Jones</option>
-        </select>
-      </div>
-    </div>
+
+ 
     <div class="row">
       <input type="submit" value="Submit">
     </div>

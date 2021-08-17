@@ -1,4 +1,56 @@
-<?php include('../datalayer/server.php') ?>
+<?php 
+  
+  $conn = "";
+	 
+  try {
+	  $servername = "localhost:3306";
+	  $dbname = "appointment";
+	  $username = "root";
+	  $password = "";
+	 
+	  $conn = new PDO(
+		  "mysql:host=$servername; dbname=appointment",
+		  $username, $password
+	  );
+		
+	 $conn->setAttribute(PDO::ATTR_ERRMODE,
+					  PDO::ERRMODE_EXCEPTION);
+  }
+  catch(PDOException $e) {
+	  echo "Connection failed: " . $e->getMessage();
+  }
+  function test_input($data) {
+      
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+   
+if ($_SERVER["REQUEST_METHOD"]== "POST") {
+      
+    $Name = test_input($_POST["Name"]);
+    $Password = test_input($_POST["Password"]);
+    $stmt = $conn->prepare("SELECT * FROM patients");
+    $stmt->execute();
+    $users = $stmt->fetchAll();
+      
+    foreach($users as $user) {
+          
+        if(($user['Name'] == $Name) && 
+            ($user['Password'] == $Password)) {
+                header("location:../presentaionlayer/patient/index.php");
+        }
+        else {
+            echo "<script language='javascript'>";
+            echo "alert('WRONG INFORMATION')";
+            echo "</script>";
+            die();
+        }
+    }
+}
+ 
+  ?>
 
 <!DOCTYPE html>
 <html>
@@ -77,11 +129,10 @@
 
 <form method="post" action="login.php" class="form">
 
-	<?php include ('../datalayer/errors.php')?>
 
 	<div class="input-group">
 		<label>Name</label>
-		<input type="text" name="Username">
+		<input type="text" name="Name">
 
 	</div>
 

@@ -1,4 +1,3 @@
-<?php include '../../datalayer/bookserver.php'; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -129,63 +128,101 @@ width: auto;
 	
 <form method="post" action="searchpatient.php" class="patientsearch">
 
-	<?php include ('../../datalayer/errors.php') ;?>
-
 	<div class="input-group">
 		<label style="font-weight: bold; font-size: 30px">Search By:</label>
 		<label style="font-weight: bold">*Patient ID</label>
-		<input type="text" name="PID" >
+		<input type="text" name="Patient_ID" >
 
 	</div>
 
 	<div class="input-group">
-		<button type="submit" name="SearchP" class="btn">Search</button>
+		<button type="submit" name="Search" class="btn">Search</button>
 	</div>
 		</form>
-	</form>
+</form>
 
 		<?php 
 
-         if (isset($_POST['SearchP'])) {
+         if (isset($_POST['Search'])) {
 
          ?>	<table class="table3" >
          	<caption style="margin-left: 34px;padding: 10px;font-weight: bold;font-size: 30px;" class="asd">Patient Information</caption>>
-		<tr>
-		<th>PatientID</th>
-		<th>Name</th>
-		<th>Address</th>
-		<th>Contact Number</th>
-		<th>Email</th>
-		<th>BloodGroup</th>
-		</tr>
-		<?php  
-		$PID =$mysqli -> real_escape_string($_POST['PID']);
 
-		$sqlP="SELECT  * FROM  patients   WHERE 	UserID=('$PID') OR Name=('$PID') " ;
-		$resultP=$mysqli->query($sqlP);
-		if(mysqli_num_rows($resultP)==1){
-			while ($rowP=$resultP->fetch_assoc()) {
+		<?php
+echo "<tr><th>Appointment ID</th><th>Name</th><th>Contact Number</th><th>Address</th><th>Email</th><th>Booldtype</th></tr>";
 
-				echo "<tr><td>".$rowP["UserID"]."</td><td>".$rowP["Name"]."</td><td>".$rowP["Address"]."</td><td>".$rowP["ContactNumber"]."</td><td>".$rowP['Email']."</td><td>".$rowP['Bloodtype']."</td></tr>";
-			}
-			echo "</table";
-		}
-	}?>
+class TableRows extends RecursiveIteratorIterator {
+  function __construct($it) {
+    parent::__construct($it, self::LEAVES_ONLY);
+  }
+
+  function current() {
+    return "<td style='width:150px;border:1px solid black;'>" . parent::current(). "</td>";
+  }
+
+  function beginChildren() {
+    echo "<tr>";
+  }
+
+  function endChildren() {
+    echo "</tr>" . "\n";
+  }
+}
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "appointment";
+
+try {
+  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $stmt = $conn->prepare("SELECT Patient_ID, Name, ContactNumber, Address, Email, Bloodtype FROM patients;");
+  $stmt->execute();
+
+  // set the resulting array to associative
+  $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+  foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
+    echo $v;
+  }
+} catch(PDOException $e) {
+  echo "Error: " . $e->getMessage();
+}
+$conn = null;
+echo "</table>";
+?>
  </table>
-			<?php 	
-				 if (isset($_POST['SearchP'])) {
-
-         ?>	<table class="table2">
+  	<table class="table2">
          	<caption style="margin-left: 34px;padding: 10px;font-weight: bold;font-size: 30px;" class="asd">Treatment History</caption>>
-		<tr>
-		<th>PatientID</th>
-		<th>PatientName</th>
-		<th>Treatment</th>
-		<th>Doctor's Note</th>	
-		</tr> 
-		<?php  
+	
+		<?php
+echo "<tr><th>PatientID</th><th>Patient Name</th><th>Treatment</th><th>Doctor's Note</th></tr>";
 
-		$PID =$mysqli -> real_escape_string($_POST['PID']);
+
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "appointment";
+
+try {
+  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $stmt = $conn->prepare("SELECT Patient_ID, PatientName, Treatment, DoctorNote FROM treatment;");
+  $stmt->execute();
+
+  // set the resulting array to associative
+  $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+  foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
+    echo $v;
+  }
+} catch(PDOException $e) {
+  echo "Error: " . $e->getMessage();
+}
+$conn = null;
+echo "</table>";
+?>
+	<?php  
 
 	}?>
  </table>

@@ -1,4 +1,4 @@
-<?php include '../../datalayer/bookserver.php'; ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,6 +70,7 @@ th{
 tr:nth-child(even){
 	background-color: grey;
 	width: auto;
+	color: black;
 }
 #footer{
   background-color: #212121;
@@ -101,31 +102,50 @@ tr:nth-child(even){
 
 <body>
 	<table class="table4">
-		<tr>
-		<th>Patient ID</th>
-		<th>Patient Name</th>
-		<th>Address</th>
-		<th>Contact Number</th>
-		<th>Email</th>
-		<th>Blood Group</th>
+	
+		<?php
+echo "<tr><th>Patient ID</th><th>Name</th><th>Contact Number</th><th>Address</th><th>Email</th><th>Bloodtype</th></tr>";
 
-		</tr>
+class TableRows extends RecursiveIteratorIterator {
+  function __construct($it) {
+    parent::__construct($it, self::LEAVES_ONLY);
+  }
 
-		<?php $sql3="SELECT  * FROM  patients " ;
-		$result3=$mysqli->query($sql3);
-		if(mysqli_num_rows($result3)>=1){
-			while ($row3=$result3->fetch_assoc()) {
+  function current() {
+    return "<td style='width:150px;border:1px solid black;'>" . parent::current(). "</td>";
+  }
 
-				echo "<tr><td>".$row3["UserID"]."</td><td>".$row3["Name"]."</td><td>".$row3["Address"]."</td><td>".$row3["ContactNumber"]."</td><td>".$row3['Email']."</td><td>".$row3['Bloodtype']."</td></tr>";
-			}
+  function beginChildren() {
+    echo "<tr>";
+  }
 
-			echo "</table";
+  function endChildren() {
+    echo "</tr>" . "\n";
+  }
+}
 
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "appointment";
 
-		}
+try {
+  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $stmt = $conn->prepare("SELECT Patient_ID, Name, ContactNumber, Address, Email, Bloodtype FROM patients");
+  $stmt->execute();
 
-		?>
-		
+  // set the resulting array to associative
+  $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+  foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
+    echo $v;
+  }
+} catch(PDOException $e) {
+  echo "Error: " . $e->getMessage();
+}
+$conn = null;
+echo "</table>";
+?>
 	</table>
 	<div id="footer">
       &copy; All Rights Reserved 2021-

@@ -1,4 +1,4 @@
-<?php include '../../datalayer/bookserver.php'; ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,6 +31,11 @@ h2{
 	font-family: Times New Roman;
 	color: blue;
 	font-size: 30px;
+}
+h1{margin-left:35% ;
+	margin-top:30px ;
+	color: white; 
+	font-family: Times New Roman;
 }
 ul{
 	width: auto;
@@ -103,33 +108,51 @@ tr:nth-child(even){
 </header>
 
 <body>
-	<h1 style="margin-left:35% ;margin-top:30px color: white; font-family: Times New Roman;"   class="asd">Patients FeedBack</h1>
+	<h1 class="asd">Patients FeedBack</h1>
 	<table class="table4" style="width: 100%">
-		<tr>
-		<th>Patient ID</th>
-		<th>Patient Name</th>
-		<th>FeedBack</th>
-		
+	<?php
+echo "<tr><th>Patient ID</th><th>Name</th><th>Email</th><th>Message</th></tr>";
 
-		</tr>
+class TableRows extends RecursiveIteratorIterator {
+  function __construct($it) {
+    parent::__construct($it, self::LEAVES_ONLY);
+  }
 
-		<?php $sql3="SELECT  * FROM  patients,feedback WHERE pID=UserID " ;
-		$result3=$mysqli->query($sql3);
-		if(mysqli_num_rows($result3)>=1){
-			while ($row3=$result3->fetch_assoc()) {
+  function current() {
+    return "<td style='width:150px;border:1px solid black;'>" . parent::current(). "</td>";
+  }
 
-				echo "<tr><td>".$row3["pID"]."</td><td>".$row3["Name"]."</td><td>".$row3['feedback']."</td></tr>";
-			}
+  function beginChildren() {
+    echo "<tr>";
+  }
 
+  function endChildren() {
+    echo "</tr>" . "\n";
+  }
+}
 
-			echo "</table";
-	
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "appointment";
 
+try {
+  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $stmt = $conn->prepare("SELECT Patient_ID, Name, Email, Message FROM feedback");
+  $stmt->execute();
 
-		}
-
-		?>
-		
+  // set the resulting array to associative
+  $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+  foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
+    echo $v;
+  }
+} catch(PDOException $e) {
+  echo "Error: " . $e->getMessage();
+}
+$conn = null;
+echo "</table>";
+?>
 	</table>
 	<div id="footer">
       &copy; All Rights Reserved 2021-

@@ -1,4 +1,4 @@
-<?php include '../../datalayer/bookserver.php'; ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,6 +70,7 @@ th{
 tr:nth-child(even){
 	background-color: grey;
 	width: auto;
+	color: black;
 }
 form{
 	width: 30%;
@@ -157,29 +158,49 @@ h1{
 <body>
 	<h1 style="margin-left:40% ;margin-top:30px; color: white;"   class="asd"> Appointments </h1>
 	<table class="table4">
-		<tr>
-		<th>Appointments ID</th>
-		<th>Doctor ID</th>
-		<th>Patient ID</th>
-		<th>Date</th>
-		<th>Time</th>
-		
+	<?php
+echo "<tr><th>Appointment ID</th><th>Patient ID</th><th>Name</th><th>DATE</th><th>TIME</th><th>Doctor Name</th><th>Category</th></tr>";
 
-		</tr>
+class TableRows extends RecursiveIteratorIterator {
+  function __construct($it) {
+    parent::__construct($it, self::LEAVES_ONLY);
+  }
 
-		<?php $sql3="SELECT  * FROM  book " ;
-		$result3=$mysqli->query($sql3);
-		if(mysqli_num_rows($result3)>=1){
-			while ($row3=$result3->fetch_assoc()) {
+  function current() {
+    return "<td style='width:150px;border:1px solid black;'>" . parent::current(). "</td>";
+  }
 
-				echo "<tr><td>".$row3["AppoID"]."</td><td>".$row3["docID"]."</td><td>".$row3["patientID"]."</td><td>".$row3["Date"]."</td><td>".$row3['Time']."</td></tr>";
-			}
-			echo "</table";
-	
-		}
+  function beginChildren() {
+    echo "<tr>";
+  }
 
-		?>
-		
+  function endChildren() {
+    echo "</tr>" . "\n";
+  }
+}
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "appointment";
+
+try {
+  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $stmt = $conn->prepare("SELECT*FROM book");
+  $stmt->execute();
+
+  // set the resulting array to associative
+  $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+  foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
+    echo $v;
+  }
+} catch(PDOException $e) {
+  echo "Error: " . $e->getMessage();
+}
+$conn = null;
+echo "</table>";
+?>
 	</table>
 
     <form role="form" method="post" enctype="multipart/form-data" class="form1" style="width: 100%;margin-top:110px;margin-left: -10px;">
@@ -212,7 +233,7 @@ h1{
     
     <?php 
     if (isset($_POST['sendmail'])){
-        if(mail($_POST['email'], $_POST['subject'], $_POST['message'],'FROM:gassermohsen83@gmail.com')){
+        if(mail($_POST['email'], $_POST['subject'], $_POST['message'],'FROM:afyabora@gmail.com')){
             echo "success";
         }else{
             echo "failed";

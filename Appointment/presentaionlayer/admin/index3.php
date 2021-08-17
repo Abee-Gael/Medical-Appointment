@@ -1,9 +1,52 @@
-<?php include ('../../datalayer/bookserver.php'); ?>
+<?php
+/* Attempt MySQL server connection. Assuming you are running MySQL
+server with default setting (user 'root' with no password) */
+$mysqli = new mysqli("localhost", "root", "", "appointment");
+ 
+// Check connection
+if($mysqli === false){
+    die("ERROR: Could not connect. " . $mysqli->connect_error);
+}
+if (isset($_POST['Name']) || isset($_POST['ContactNumber']) || isset($_POST['Address']) || isset($_POST['Email']) || isset($_POST['Password'])|| isset($_POST['Category'])) {
+$Name = $mysqli->real_escape_string($_REQUEST['Name']);
+$ContactNumber = $mysqli->real_escape_string($_REQUEST['ContactNumber']);
+$Address = $mysqli->real_escape_string($_REQUEST['Address']);
+$Email = $mysqli->real_escape_string($_REQUEST['Email']);
+$Password = $mysqli->real_escape_string($_REQUEST['Password']);
+$Category = $mysqli->real_escape_string($_REQUEST['Category']);
+}
+if(!isset($Name)){
+    $Name = 'Name';
+    }
+if(!isset($ContactNumber)){
+    $ContactNumber = 'ContactNumber';
+    }
+    if(!isset($Address)){
+    $Address = 'Address';
+    }
+    if(!isset($Email)){
+        $Email = 'Email';
+        }
+		if(!isset($Password)){
+			$Password = 'Password';
+			}
+			if(!isset($Category)){
+				$Category = 'Category';
+				}
+// Attempt insert query execution
+$sql = "INSERT INTO doctor (Name, ContactNumber, Address, Email, Password, Category) VALUES ('$Name', '$ContactNumber', '$Address','$Email', '$Password','$Category')";
+if($mysqli->query($sql) === true){
+} else{
+    echo "ERROR: Could not able to execute $sql. " . $mysqli->error;
+}
+ 
+// Close connection
+$mysqli->close();
+?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Admin</title>
-	<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Open+Sans:wght@300&display=swap" rel="stylesheet">
 	<style>
 		*{
 	margin: 0px;
@@ -52,7 +95,7 @@ a:hover{
 	color: #F0c330;
 	transition: 0.5s;
 }
-.headerA{
+.header{
 	width: 30%;
 	margin:30px 20px 0px 50px;
 	color: white;
@@ -76,28 +119,29 @@ a:hover{
 form{
 	width: 30%;
 	margin:0px 20px 0px 50px;
+	margin:50px auto;
 	padding: 20px;
 	border: 1px solid grey;
 	background: white;
 	border-radius: 0px 0px 10px 10px;
 }
-.input-groupA{
+.input-group{
 	margin: 10px 0px 10px 0px;
 }
-.input-groupA label{
+.input-group label{
 	display: block;
 	text-align: left;
 	margin: 3px;
 }
-.input-groupA input{
-	height: 30px;
+.input-group input{
+	height: 10px;
 	width: 93%;
 	padding: 5px 10px;
 	font-size: 16px;
 	border-radius: 5px;
 	border:2px solid grey;
 }
-.btnA{
+.btn{
 	padding: 10px;
 	font-size: 15px;
 	color: white;
@@ -121,7 +165,7 @@ form{
 	background: white;
 	border-radius: 0px 0px 10px 10px;
 }
-.headerAD{
+.headerA{
 	width: 30%;
 	margin:-400px 20px 0px 900px;
 	color: white;
@@ -156,7 +200,7 @@ font-size: 30px;
 	<h2>Afya Bora</h2>
 		<nav>
 		<ul> 
-		<li><a href="index3.php">Add/Delete Doctor</a></li>
+		<li><a href="index3.php">Add Doctor</a></li>
 			<li><a href="viewdoctor.php">View Doctors</a></li>
 			<li><a href=" viewpatients.php">View Patients</a></li>
 			<li><a href="viewappointments.php">View Appointments</a></li>
@@ -167,74 +211,45 @@ font-size: 30px;
 </header>
 <body>
 
-		<div class="headerA">
-	<h3>Add Doctor</h3>
-</div>
-
 <form method="post" action="index3.php">
 
-	<?php include ('../../datalayer/errors.php'); ?>
-
-	<div class="input-groupA">
-		<label>Doctor ID</label>
-		<input type="text" name="addID" >
-
+	<div class="input-group">
+		<label>Name</label>
+		<input type="text" name="Name" >
 	</div>
-
-	<div class="input-groupA">
-		<label>Doctor Name</label>
-		<input type="text" name="addname" >
-	</div>
-	<div class="input-groupA">
+	<div class="input-group">
 		<label>Contact Number</label>
-		<input type="text" name="addContactNumber">
+		<input type="text" name="ContactNumber">
 	</div>
-	<div class="input-groupA">
-		<label>Email address</label>
-		<input type="text" name="addEmail">
+	<div class="input-group">
+		<label>Email</label>
+		<input type="text" name="Email">
+
+	</div>
+	<div class="input-group">
+		<label>Address</label>
+		<input type="text" name="Address">
 
 	</div>
 
-	<div class="input-groupA">
+	<div class="input-group">
 		<label>Password</label>
-		<input type="text" name="addpassword">
+		<input type="text" name="Password">
 
 	</div>
-<div class="input-groupA">
-	<label>Category</label>
-	   	<select name="addcategory" class="xd">
-		   <option value="OB/GYN" >OB/GYN</option>
-	   		<option value="Oncologists" >Oncologists</option>
-	   		<option value="Cardiologist">Cardiologist</option>
-	   		<option value="Dentistry">Dentistry</option>
-	   		<option value="Paediatrician">Paediatrician</option>
-	   		<option value="General Physician">General Physician</option>
-	   	</select>
-	   	</div>
+    <div class="input-group">
+	   <label>Category</label>
+	   <input type="text" name="Category">
+	</div>
 
-	<div class="input-groupA">
-		<button type="submit" name="Add" class="btnA">Add Doctor</button>
+	<div class="input-group">
+		<button type="submit" name="Add" class="btn">Add Doctor</button>
 	</div>
 
 
 </form>
-	<div class="headerAD">
-	<h3>Delete Doctor</h3>
-</div>
+	
 
-<form method="post" action="index3.php" class="delete">
-
-	<div class="input-groupA">
-		<label>Doctor ID</label>
-		<input type="text" name="deleteID" >
-
-	</div>
-
-	<div class="input-groupA">
-		<button type="submit" name="Delete" class="btnA">Delete</button>
-	</div>
-
-</form>
 <div id="footer">
       &copy; All Rights Reserved 2021-
     </div>

@@ -1,9 +1,30 @@
-<?php include '../../datalayer/bookserver.php'; ?>
+<?php
+/* Attempt MySQL server connection. Assuming you are running MySQL
+server with default setting (user 'root' with no password) */
+try{
+    $pdo = new PDO("mysql:host=localhost;dbname=appointment", "root", "");
+    // Set the PDO error mode to exception
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch(PDOException $e){
+    die("ERROR: Could not connect. " . $e->getMessage());
+}
+ 
+// Attempt update query execution
+try{
+    $sql = "DELETE FROM book WHERE Appointment_ID='?'";  
+    $pdo->exec($sql);
+    echo "";
+} catch(PDOException $e){
+    die("ERROR: Could not able to execute $sql. " . $e->getMessage());
+}
+ 
+// Close connection
+unset($pdo);
+            ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Patient</title>
-	<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Open+Sans:wght@300&display=swap" rel="stylesheet">
 	<style> 
 	      body {margin: 0;}
       .banner{
@@ -13,7 +34,7 @@
             background-size: cover;
             background-position: center;
         } 
-        body {font-family: Arial, Helvetica, sans-serif;}
+        body {font-family: Times New Roman;}
 
 		header{
 	width: 100%;
@@ -134,6 +155,7 @@ form{
 			<li><a href=" book.php">Book Appointment</a></li>
 			<li><a href="view.php">View Appointment</a></li>
 			<li><a href="cancel.php">Cancel Booking</a></li>
+			<li><a href="feedback.php">Feedback</a></li>
 			<li><a href="services.php">Services</a></li>
 			<li><a href="about us.php">About Us</a></li>
 			<li><a href="../../applicationlayer/Doctorpatient.php">Logout</a></li>
@@ -144,16 +166,15 @@ form{
 <body>	
 <form method="post" action="cancel.php">
 
-	<?php include ('../../datalayer/errors.php') ;?>
 
 	<div class="input-group">
-		<label>Name</label>
-		<input type="text" name="Name" >
+		<label>Appointment ID</label>
+		<input type="ID" name="Appointment_ID" >
 
 	</div>
 
 	<div class="input-group">
-		<button type="submit" name="cancel" class="btn">Cancel</button>
+		<button type="Submit" name="Cancel" class="btn">Cancel</button>
 	</div>
 		</form>
 	</form>
@@ -164,5 +185,4 @@ form{
     </div>
 </body>
 </html>
-
 
