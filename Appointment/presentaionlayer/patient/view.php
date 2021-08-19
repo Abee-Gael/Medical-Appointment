@@ -94,7 +94,6 @@ tr:nth-child(even){
       <li><a href=" index.php">Home</a></li>
 			<li><a href=" book.php">Book Appointment</a></li>
 			<li><a href="view.php">View Appointment</a></li>
-			<li><a href="cancel.php">Cancel Booking</a></li>
 			<li><a href="feedback.php">Feedback</a></li>
 			<li><a href="services.php">Services</a></li>
 			<li><a href="about us.php">About Us</a></li>
@@ -105,7 +104,7 @@ tr:nth-child(even){
 	<table class="table2">
 
 		<?php
-echo "<tr><th>Appointment ID</th><th>Patient ID</th><th>Name</th><th>DATE</th><th>TIME</th><th>Doctor Name</th><th>Category</th></tr>";
+echo "<tr><th>Appointment ID</th><th>Name</th><th>DATE</th><th>TIME</th><th>Doctor Name</th><th>Category</th></tr>";
 
 class TableRows extends RecursiveIteratorIterator {
   function __construct($it) {
@@ -150,7 +149,7 @@ echo "</table>";
 	</table>
 
 <div id="footer">
-      &copy; All Rights Reserved 2021-
+      &copy; Afyabora All Rights Reserved 2021-
     </div>
     </div>
 </body>

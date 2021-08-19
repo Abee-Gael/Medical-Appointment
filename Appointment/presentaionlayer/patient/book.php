@@ -150,8 +150,32 @@ input[type=submit] {
 @media screen and (max-width: 600px) {
   .col-25, .col-75, input[type=submit] {
     width: 100%;
-    margin-top: 0;
+	font-size: 15px;
   }
+}
+.btn{
+	margin :0 50% 0 40%;
+	padding: 10px 30px 10px 30px;
+  margin-top: 30px;
+	font-size: 15px;
+	color: white;
+	background: grey;
+	border:none;
+	border-radius: 5px;
+	font-family: Times New Roman;
+	font-size: 20px;
+}
+.btnB{
+	margin :0 50% 0 40%;
+  margin-top: 20px;
+	padding: 10px 40px 10px 30px;
+	font-size: 15px;
+	color: white;
+	background: grey;
+	border:none;
+	border-radius: 5px;
+	font-family: Times New Roman;
+	font-size: 20px;
 }
 #footer{
   background-color: #212121;
@@ -175,7 +199,6 @@ input[type=submit] {
       <li><a href=" index.php">Home</a></li>
 			<li><a href=" book.php">Book Appointment</a></li>
 			<li><a href="view.php">View Appointment</a></li>
-			<li><a href="cancel.php">Cancel Booking</a></li>
       <li><a href="feedback.php">Feedback</a></li>
 			<li><a href="services.php">Services</a></li>
 			<li><a href="about us.php">About Us</a></li>
@@ -191,7 +214,7 @@ input[type=submit] {
         <label for="Name">Name</label>
       </div>
       <div class="col-75">
-        <input type="text" id="" name="Name" placeholder="Your name..">
+        <input type="text" id="" name="Name" required placeholder="Your name..">
       </div>
     </div>
     <div class="row">
@@ -199,7 +222,7 @@ input[type=submit] {
         <label for="Date">Date</label>
       </div>
       <div class="col-75">
-        <input type="Date" id="" name="Date" placeholder="">
+        <input type="Date" id="" name="Date" required placeholder="">
       </div>
     </div>
     <div class="row">
@@ -207,7 +230,7 @@ input[type=submit] {
         <label for="Time">Time</label>
       </div>
       <div class="col-75">
-        <input type="Time" id="" name="Time" placeholder="">
+        <input type="Time" id="" name="Time" required placeholder="">
       </div>
     </div>
     <div class="row">
@@ -230,14 +253,63 @@ input[type=submit] {
         </select>
       </div>
     </div>
-    <div class="row">
-      <input type="submit" value="Submit">
-    </div>
+    <div class="input-group">
+		<button type="Submit" name="Book" class="btnB">Book</button>
+	</div>
+    <div class="input-group">
+		<button type="Submit" name="Cancel" class="btn">Cancel</button>
+	</div>
+  <?php
+/* Attempt MySQL server connection. Assuming you are running MySQL
+server with default setting (user 'root' with no password) */
+$mysqli = new mysqli("localhost", "root", "", "appointment");
+ 
+// Check connection
+if($mysqli === false){
+    die("ERROR: Could not connect. " . $mysqli->connect_error);
+}
+ 
+if (isset($_POST['Name']) || isset($_POST['Date']) || isset($_POST['Time']) ||isset($_POST['DoctorName'])|| isset($_POST['Category'])) {
+// Escape user inputs for security
+$Name = $mysqli->real_escape_string($_REQUEST['Name']);
+$Date = $mysqli->real_escape_string($_REQUEST['Date']);
+$Time = $mysqli->real_escape_string($_REQUEST['Time']);
+$DoctorName = $mysqli->real_escape_string($_REQUEST['DoctorName']);
+$Category = $mysqli->real_escape_string($_REQUEST['Category']);
+} 
+if(!isset($Name)){
+  $Name = 'Name';
+  }
+if(!isset($Date)){
+  $Date = 'Date';
+  }
+  if(!isset($Time)){
+  $Time = 'Time';
+  }
+  if(!isset($DoctorName)){
+      $DoctorName = 'DoctorName';
+      }
+      if(!isset($Category)){
+        $Category = 'Category';
+        }
+// Attempt insert query execution
+$sql = "INSERT INTO cancel(Name, Date, Time, DoctorName, Category) VALUES ('$Name', '$Date', '$Time','$DoctorName','$Category')";
+if($mysqli->query($sql) === true){
+} else{
+    echo "ERROR: Could not able to execute $sql. " . $mysqli->error;
+}
+ 
+// Close connection
+$mysqli->close();
+?>
+
+
+
   </form>
 </div>
 	</div>
 	<div id="footer">
-      &copy; All Rights Reserved 2021-
+      &copy; Afyabora All Rights Reserved 2021-
     </div>
     </div>
 </body>

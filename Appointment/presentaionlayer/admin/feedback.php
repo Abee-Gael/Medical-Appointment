@@ -111,7 +111,7 @@ tr:nth-child(even){
 	<h1 class="asd">Patients FeedBack</h1>
 	<table class="table4" style="width: 100%">
 	<?php
-echo "<tr><th>Patient ID</th><th>Name</th><th>Email</th><th>Message</th></tr>";
+echo "<tr><th>Name</th><th>Email</th><th>Message</th></tr>";
 
 class TableRows extends RecursiveIteratorIterator {
   function __construct($it) {
@@ -139,7 +139,7 @@ $dbname = "appointment";
 try {
   $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $stmt = $conn->prepare("SELECT Patient_ID, Name, Email, Message FROM feedback");
+  $stmt = $conn->prepare("SELECT  Name, Email, Message FROM feedback");
   $stmt->execute();
 
   // set the resulting array to associative
@@ -155,7 +155,7 @@ echo "</table>";
 ?>
 	</table>
 	<div id="footer">
-      &copy; All Rights Reserved 2021-
+      &copy; Afyabora All Rights Reserved 2021-
     </div>
 </body>
 </html>

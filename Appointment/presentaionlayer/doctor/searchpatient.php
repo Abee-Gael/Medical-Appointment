@@ -112,7 +112,18 @@ tr:nth-child(even){
 background-color: grey;
 width: auto;
 }
-	</style>
+#footer{
+  background-color: #212121;
+  height: 60px;
+  bottom: 0px;
+  left: 0px;
+  line-height: 50px;
+  color: #aaa;
+  text-align: center;
+  width: 100%;
+  font-family: Times New Roman;
+}	
+</style>
 </head>
 <body>
 	<header>
@@ -121,6 +132,7 @@ width: auto;
 		<ul> 
 			<li><a href=" index.php">Home</a></li>
 			<li><a href=" searchpatient.php">Search Patient</a></li>
+			<li><a href=" treatment.php">Treatment</a></li>
 			<li><a href="../../applicationlayer/Doctorpatient.php">Logout</a></li>
 		</ul>
 	</nav>
@@ -149,7 +161,7 @@ width: auto;
          	<caption style="margin-left: 34px;padding: 10px;font-weight: bold;font-size: 30px;" class="asd">Patient Information</caption>>
 
 		<?php
-echo "<tr><th>Appointment ID</th><th>Name</th><th>Contact Number</th><th>Address</th><th>Email</th><th>Booldtype</th></tr>";
+echo "<tr><th>Patient ID</th><th>Name</th><th>Contact Number</th><th>Address</th><th>Email</th><th>Booldtype</th></tr>";
 
 class TableRows extends RecursiveIteratorIterator {
   function __construct($it) {
@@ -193,7 +205,7 @@ echo "</table>";
 ?>
  </table>
   	<table class="table2">
-         	<caption style="margin-left: 34px;padding: 10px;font-weight: bold;font-size: 30px;" class="asd">Treatment History</caption>>
+         	<caption style="margin-left: 34px;padding: -10px;font-weight: bold;font-size: 30px;" class="asd">Treatment History</caption>>
 	
 		<?php
 echo "<tr><th>PatientID</th><th>Patient Name</th><th>Treatment</th><th>Doctor's Note</th></tr>";
@@ -226,7 +238,10 @@ echo "</table>";
 
 	}?>
  </table>
-	
+ <div id="footer">
+      &copy; Afyabora All Rights Reserved 2021-
+    </div>
+</div>
 </body>
 </html>
 

@@ -279,7 +279,7 @@ body{
 
 </div>
 <div id="footer">
-      &copy; All Rights Reserved 2021-
+      &copy; Afyabora All Rights Reserved 2021-
     </div>
 </div>
 </body>

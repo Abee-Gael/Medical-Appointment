@@ -133,7 +133,6 @@ a:hover{
       <li><a href=" index.php">Home</a></li>
 			<li><a href=" book.php">Book Appointment</a></li>
 			<li><a href="view.php">View Appointment</a></li>
-			<li><a href="cancel.php">Cancel Booking</a></li>
             <li><a href="feedback.php">Feedback</a></li>
 			<li><a href="services.php">Services</a></li>
 			<li><a href="about us.php">About Us</a></li>
@@ -150,7 +149,7 @@ a:hover{
                </div>
         </div>
 		<div id="footer">
-      &copy; All Rights Reserved 2021-
+      &copy; Afyabora All Rights Reserved 2021-
     </div>
     </div>
     </body>	

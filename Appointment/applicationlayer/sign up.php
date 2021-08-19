@@ -1,53 +1,52 @@
 <?php
-/* Attempt MySQL server connection. Assuming you are running MySQL
-server with default setting (user 'root' with no password) */
-$mysqli = new mysqli("localhost", "root", "", "appointment");
- 
-// Check connection
-if($mysqli === false){
-    die("ERROR: Could not connect. " . $mysqli->connect_error);
-}
- 
-if (isset($_POST['Name']) || isset($_POST['ContactNumber']) || isset($_POST['Address']) ||isset($_POST['Email'])|| isset($_POST['Password']) || isset($_POST['Bloodtype'])) {
-// Escape user inputs for security
-$Name = $mysqli->real_escape_string($_REQUEST['Name']);
-$ContactNumber = $mysqli->real_escape_string($_REQUEST['ContactNumber']);
-$Address = $mysqli->real_escape_string($_REQUEST['Address']);
-$Email = $mysqli->real_escape_string($_REQUEST['Email']);
-$Password = $mysqli->real_escape_string($_REQUEST['Password']);
-$Bloodtype = $mysqli->real_escape_string($_REQUEST['Bloodtype']);
-} 
-if(!isset($Name)){
-  $Name = 'Name';
-  }
-  if(!isset($ContactNumber)){
-  $ContactNumber = 'ContactNumber';
-  }
-  if(!isset($Address)){
-      $Address = 'Address';
-      }
-	  if(!isset($Email)){
+$servername='localhost';
+$username='root';
+$password='';
+$dbname = "appointment";
+try {
+	if (isset($_POST['Name']) || isset($_POST['ContactNumber']) || isset($_POST['Email']) || isset($_POST['Address']) || isset($_POST['Password']) || isset($_POST['Bloodtype'])) {
+    $Name = $_POST['Name'];
+    $ContactNumber = $_POST['ContactNumber'];
+    $Address = $_POST['Address'];
+    $Email = $_POST['Email'];
+	$Password = $_POST['Password'];
+	$Bloodtype = $_POST['Bloodtype'];
+	}
+	if(!isset($Name)){
+		$Name = 'Name';
+		}
+		if(!isset($ContactNumber)){
+			$ContactNumber = 'ContactNumber';
+			}
+		if(!isset($Email)){
 		$Email = 'Email';
 		}
-      if(!isset($Password)){
-        $Password = 'Password';
-        }
-		if(!isset($Bloodtype)){
-			$Bloodtype = 'Bloodtype';
+		if(!isset($Address)){
+			$Address = 'Address';
 			}
-// Attempt insert query execution
-$sql = "INSERT INTO patients(Name, ContactNumber, Address, Email, Password, Bloodtype) VALUES ('$Name','$ContactNumber', '$Address', '$Email','$Password','$Bloodtype')";
+			if(!isset($Password)){
+				$Password = 'Password';
+				}
+				if(!isset($Bloodtype)){
+					$Bloodtype = 'Bloodtype';
+					}
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    /* set the PDO error mode to exception */
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+   $sql = "INSERT INTO patients (Name, ContactNumber, Address, Email, Password, Bloodtype)
+    VALUES ('$Name', '$ContactNumber','$Address','$Email','$Password','$Bloodtype')";
+    $conn->exec($sql);
+    echo "";
+    }
+catch(PDOException $e)
+    {
 
-if($mysqli->query($sql) === true){
-} else{
-    echo "ERROR: Could not able to execute $sql. " . $mysqli->error;
-}
-$_SESSION['Name']=$Name;
-$_SESSION['success']="you are now logged in";
-header('location:../presentaionlayer/patient/index.php');
-// Close connection
-$mysqli->close();
+    	echo $sql . "<br>" . $e->getMessage();
+    }
+
+$conn = null;
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -131,44 +130,42 @@ form{
 
 	<div class="input-group">
 		<label>Name</label>
-		<input type="text" name="Name" >
+		<input type="text" name="Name" required>
 
 
 	</div>
 
 	<div class="input-group">
 		<label>Address</label>
-		<input type="text" name="Address">
+		<input type="text" name="Address" required>
 
 	</div>
 
 	<div class="input-group">
 		<label>Contact Number</label>
-		<input type="text" name="ContactNumber">
+		<input type="text" name="ContactNumber" required>
 
 
 	</div>
 
-
 	<div class="input-group">
 		<label>Email</label>
-		<input type="text" name="Email">
+		<input type="text" name="Email" required>
 
 	</div>
 
 	<div class="input-group">
 		<label>Password</label>
-		<input type="text" name="Password">
+		<input type="text" name="Password" required>
 
 	</div>
 
 	<div class="input-group">
 		<label>Blood type</label>
-		<input type="text" name="Bloodtype">
+		<input type="text" name="Bloodtype" required>
 
 	</div>
    
-
 	<div class="input-group">
 		<button type="submit" name="Register" class="btn">Register</button>
 	</div>

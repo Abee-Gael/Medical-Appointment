@@ -65,7 +65,18 @@ background-color: grey;
 color: white;
 width: auto;
 }
-
+#footer{
+  background-color: #212121;
+  height: 60px;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  line-height: 50px;
+  color: #aaa;
+  text-align: center;
+  width: 100%;
+  font-family: Times New Roman;
+}
     </style>
 </head>
 
@@ -75,6 +86,7 @@ width: auto;
 		<ul> 
 			<li><a href=" index2.php">Home</a></li>
 			<li><a href=" searchpatient.php">Search Patient</a></li>
+			<li><a href=" treatment.php">Treatment</a></li>
 			<li><a href="../../applicationlayer/Doctorpatient.php">Logout</a></li>
 		</ul>
 	</nav>
@@ -126,7 +138,10 @@ echo "</table>";
 ?>
 		
 	</table>
-
+	<div id="footer">
+      &copy; Afyabora All Rights Reserved 2021-
+    </div>
+</div>
 </body>
 </html>
 

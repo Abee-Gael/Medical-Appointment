@@ -1,39 +1,40 @@
 <?php
-/* Attempt MySQL server connection. Assuming you are running MySQL
-server with default setting (user 'root' with no password) */
-$mysqli = new mysqli("localhost", "root", "", "appointment");
+$servername='localhost';
+$username='root';
+$password='';
+$dbname = "appointment";
+try {
+  if (isset($_POST['Name']) || isset($_POST['Email']) || isset($_POST['Message'])) {
+    $Name = $_POST['Name'];
+    $Email = $_POST['Email'];
+	  $Message = $_POST['Message'];
+  }
+    if(!isset($Name)){
+      $Name = 'Name';
+      }
+      if(!isset($Email)){
+      $Email = 'Email';
+      }
+      if(!isset($Message)){
+          $Message = 'Message';
+          }
+        
  
-// Check connection
-if($mysqli === false){
-    die("ERROR: Could not connect. " . $mysqli->connect_error);
-}
- 
-if (isset($_POST['Name']) || isset($_POST['Email']) || isset($_POST['Message'])) {
-// Escape user inputs for security
-$Name = $mysqli->real_escape_string($_REQUEST['Name']);
-$Date = $mysqli->real_escape_string($_REQUEST['Email']);
-$Time = $mysqli->real_escape_string($_REQUEST['Message']);
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    /* set the PDO error mode to exception */
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+   $sql = "INSERT INTO feedback (Name, Email, Message)
+    VALUES ('$Name', '$Email','$Message')";
+    $conn->exec($sql);
+    echo "";
+    }
+catch(PDOException $e)
+    {
 
-} 
-if(!isset($Name)){
-  $Name = 'Name';
-  }
-if(!isset($Email)){
-  $Date = 'Email';
-  }
-  if(!isset($Message)){
-  $Time = 'Message';
-  }
- 
-// Attempt insert query execution
-$sql = "INSERT INTO feedback (Name, Email, Message) VALUES ('$Name', '$Email', '$Message')";
-if($mysqli->query($sql) === true){
-} else{
-    echo "ERROR: Could not able to execute $sql. " . $mysqli->error;
-}
- 
-// Close connection
-$mysqli->close();
+    	echo $sql . "<br>" . $e->getMessage();
+    }
+
+$conn = null;
 ?>
 <!DOCTYPE html>
 <html>
@@ -42,6 +43,11 @@ $mysqli->close();
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
 * {box-sizing: border-box;}
+body,html{
+	margin: 0;
+	padding: 0;
+
+}
 header{
 	width: 100%;
 	height: 70px;
@@ -82,8 +88,7 @@ a{
 a:hover{
 	color: #F0c330;
 	transition: 0.5s;
-}
-      
+}   
 input[type=text], select, textarea {
   width: 100%;
   padding: 12px;
@@ -113,6 +118,17 @@ input[type=submit]:hover {
   background-color: #f2f2f2;
   padding: 20px;
 }
+#footer{
+  background-color: #212121;
+  height: 60px;
+  bottom: 0px;
+  left: 0px;
+  line-height: 50px;
+  color: #aaa;
+  text-align: center;
+  width: 100%;
+  font-family: Times New Roman;
+}
 </style>
 </head>
 <body>
@@ -123,7 +139,6 @@ input[type=submit]:hover {
       <li><a href=" index.php">Home</a></li>
 			<li><a href=" book.php">Book Appointment</a></li>
 			<li><a href="view.php">View Appointment</a></li>
-			<li><a href="cancel.php">Cancel Booking</a></li>
       <li><a href="feedback.php">Feedback</a></li>
 			<li><a href="services.php">Services</a></li>
 			<li><a href="about us.php">About Us</a></li>
@@ -136,17 +151,19 @@ input[type=submit]:hover {
 <div class="container">
   <form action="feedback.php" method="post">
     <label for="Name"> Name</label>
-    <input type="text" id="" name="Name" placeholder="Your name..">
+    <input type="text" id="" name="Name" required placeholder="Your name..">
 
     <label for="Email">Email</label>
-    <input type="text" id="" name="Email" placeholder="Your last name..">
+    <input type="text" id="" name="Email" required placeholder="Enter a valid email address">
 
     <label for="Message">Message</label>
-    <textarea id="subject" name="Message" placeholder="Write something.." style="height:200px"></textarea>
+    <textarea type="text" name="Message" required placeholder="Write something.." style="height:200px"></textarea>
 
     <input type="submit" value="Submit">
   </form>
 </div>
-
+<div id="footer">
+      &copy; Afyabora All Rights Reserved 2021-
+    </div>
 </body>
 </html>

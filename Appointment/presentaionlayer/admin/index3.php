@@ -215,31 +215,31 @@ font-size: 30px;
 
 	<div class="input-group">
 		<label>Name</label>
-		<input type="text" name="Name" >
+		<input type="text" name="Name" required>
 	</div>
 	<div class="input-group">
 		<label>Contact Number</label>
-		<input type="text" name="ContactNumber">
+		<input type="text" name="ContactNumber" required>
 	</div>
 	<div class="input-group">
 		<label>Email</label>
-		<input type="text" name="Email">
+		<input type="text" name="Email" required>
 
 	</div>
 	<div class="input-group">
 		<label>Address</label>
-		<input type="text" name="Address">
+		<input type="text" name="Address" required>
 
 	</div>
 
 	<div class="input-group">
 		<label>Password</label>
-		<input type="text" name="Password">
+		<input type="text" name="Password" required>
 
 	</div>
     <div class="input-group">
 	   <label>Category</label>
-	   <input type="text" name="Category">
+	   <input type="text" name="Category" required>
 	</div>
 
 	<div class="input-group">
@@ -251,7 +251,7 @@ font-size: 30px;
 	
 
 <div id="footer">
-      &copy; All Rights Reserved 2021-
+      &copy;Afyabora All Rights Reserved 2021-
     </div>
 </body>
 </html>

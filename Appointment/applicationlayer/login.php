@@ -132,13 +132,13 @@ if ($_SERVER["REQUEST_METHOD"]== "POST") {
 
 	<div class="input-group">
 		<label>Name</label>
-		<input type="text" name="Name">
+		<input type="text" name="Name" required>
 
 	</div>
 
 	<div class="input-group">
 		<label>Password</label>
-		<input type="Password" name="Password">
+		<input type="Password" name="Password" required>
 
 
 

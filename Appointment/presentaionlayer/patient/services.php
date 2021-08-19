@@ -228,7 +228,6 @@ width: 80px;
       <li><a href=" index.php">Home</a></li>
 			<li><a href=" book.php">Book Appointment</a></li>
 			<li><a href="view.php">View Appointment</a></li>
-			<li><a href="cancel.php">Cancel Booking</a></li>
 			<li><a href="services.php">Services</a></li>
 			<li><a href="about us.php">About Us</a></li>
 			<li><a href="../../applicationlayer/Doctorpatient.php">Logout</a></li>
@@ -286,7 +285,7 @@ width: 80px;
           </section>
     </body>
     |<div id="footer">
-      &copy; All Rights Reserved 2021-
+      &copy; Ayabora All Rights Reserved 2021-
     </div>
     </div>
 </html>

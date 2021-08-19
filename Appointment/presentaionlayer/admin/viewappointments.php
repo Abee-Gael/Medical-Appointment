@@ -139,6 +139,17 @@ h1{
 	border-radius: 10px 10px 0px 0px ;
 	padding: 20px;
 }
+#footer{
+  background-color: #212121;
+  height: 60px;
+  bottom: 0px;
+  left: 0px;
+  line-height: 50px;
+  color: #aaa;
+  text-align: center;
+  width: 100%;
+  font-family: Times New Roman;
+}
 	</style>
 </head>
 
@@ -159,7 +170,7 @@ h1{
 	<h1 style="margin-left:40% ;margin-top:30px; color: white;"   class="asd"> Appointments </h1>
 	<table class="table4">
 	<?php
-echo "<tr><th>Appointment ID</th><th>Patient ID</th><th>Name</th><th>DATE</th><th>TIME</th><th>Doctor Name</th><th>Category</th></tr>";
+echo "<tr><th>Appointment ID</th><th>Name</th><th>DATE</th><th>TIME</th><th>Doctor Name</th><th>Category</th></tr>";
 
 class TableRows extends RecursiveIteratorIterator {
   function __construct($it) {
@@ -203,7 +214,39 @@ echo "</table>";
 ?>
 	</table>
 
-    <form role="form" method="post" enctype="multipart/form-data" class="form1" style="width: 100%;margin-top:110px;margin-left: -10px;">
+		<table class="table4">
+         	<caption style="margin-left: 34px;padding: -10px;font-weight: bold;font-size: 30px;" class="asd">Cancel</caption>>
+	
+		<?php
+echo "<tr><th>Cancel ID</th><th>Name</th><th>Date</th><th>Time</th><th>Doctor's Name</th><th>Category</th></tr>";
+
+
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "appointment";
+
+try {
+  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $stmt = $conn->prepare("SELECT Cancel_ID, Name, Date, Time, DoctorName, Category FROM Cancel;");
+  $stmt->execute();
+
+  // set the resulting array to associative
+  $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+  foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
+    echo $v;
+  }
+} catch(PDOException $e) {
+  echo "Error: " . $e->getMessage();
+}
+$conn = null;
+echo "</table>";
+?>
+ </table>
+
+	<form role="form" method="post" enctype="multipart/form-data" class="form1" style="width: 100%;margin-top:110px;margin-left: -10px;">
 	<div class="headerA">
 	  <h3>Confirmation</h3>
     </div>
@@ -229,9 +272,7 @@ echo "</table>";
         
         </div>
         </form>
-    
-    
-    <?php 
+		<?php 
     if (isset($_POST['sendmail'])){
         if(mail($_POST['email'], $_POST['subject'], $_POST['message'],'FROM:afyabora@gmail.com')){
             echo "success";
@@ -241,6 +282,8 @@ echo "</table>";
     }
     
     ?>
-
+<div id="footer">
+      &copy;Afyabora All Rights Reserved 2021-
+    </div>
 </body>
 </html>

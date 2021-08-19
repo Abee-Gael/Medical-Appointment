@@ -177,7 +177,7 @@ input[type=submit] {
         <label for="PatientID">Patient ID</label>
       </div>
       <div class="col-75">
-        <input type="PatientID" id="PatientID" name="PatientID" placeholder="Patients ID...">
+        <input type="PatientID" id="PatientID" name="PatientID" required placeholder="Patients ID...">
       </div>
     </div>
     <div class="row">
@@ -185,7 +185,7 @@ input[type=submit] {
         <label for="PatientName">Patient Name</label>
       </div>
       <div class="col-75">
-        <input type="PatientName" id="PatientName" name="PatientName" placeholder="Patients Name...">
+        <input type="PatientName" id="PatientName" name="PatientName" required placeholder="Patients Name...">
       </div>
     </div>
     <div class="row">
@@ -193,7 +193,7 @@ input[type=submit] {
         <label for="Treatment">Treatment</label>
       </div>
       <div class="col-75">
-        <input type="Treatment" id="Treatment" name="Treatment" placeholder="Patients treatment...">
+        <input type="Treatment" id="Treatment" name="Treatment" required placeholder="Patients treatment...">
       </div>
     </div>
     <div class="row">
@@ -201,7 +201,7 @@ input[type=submit] {
         <label for="DoctorNote">Doctor's Note</label>
       </div>
       <div class="col-75">
-        <input type="DoctorNote" id="DoctorNote" name="DoctorNote" placeholder="Doctor's Note...">
+        <input type="DoctorNote" id="DoctorNote" name="DoctorNote" required placeholder="Doctor's Note...">
       </div>
     </div>
 
@@ -213,7 +213,7 @@ input[type=submit] {
 </div>
 	</div>
 	<div id="footer">
-      &copy; All Rights Reserved 2021-
+      &copy; Afyabora All Rights Reserved 2021-
     </div>
     </div>
 </body>
